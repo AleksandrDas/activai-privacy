@@ -219,11 +219,11 @@
 <main>
   <div class="hero">
     <h2>Privacy Policy</h2>
-    <p class="updated">Last updated: <span>June 7, 2026</span></p>
+    <p class="updated">Last updated: <span>October 8, 2026</span></p>
   </div>
 
   <div class="intro-card">
-    ActivAI is built with privacy as a core principle. Your fitness data, health metrics, and activity logs stay on your device. We do not sell your data, we do not create advertising profiles, and we do not share your personal information with third parties.
+    ActivAI keeps your training log on your device. We do not sell your data and we do not create advertising profiles. Coaching context is sent to Google and OpenAI only after you allow it.
   </div>
 
   <!-- 1 -->
@@ -243,16 +243,15 @@
   <section>
     <h3>2. Information We Collect</h3>
 
-    <p><span class="highlight">Data stored locally on your device (never sent to our servers):</span></p>
+    <p><span class="highlight">Data stored on your device:</span></p>
     <ul>
       <li>Body metrics you enter during onboarding or in Profile: age, sex, height, weight</li>
       <li>Fitness goals and preferred workout duration</li>
       <li>Available gym equipment selection</li>
-      <li>Activity logs (sport type, date, duration, intensity, notes)</li>
-      <li>Generated and completed workout history</li>
-      <li>Saved workouts and training programs</li>
+      <li>Activity logs (sport type, date, duration, intensity, notes), including workouts you import from Apple Health</li>
+      <li>Generated and completed workout history, saved workouts, and training programs, stored with SwiftData</li>
       <li>AI coach chat history</li>
-      <li>App settings and preferences</li>
+      <li>App settings and preferences, stored with UserDefaults</li>
     </ul>
 
     <p style="margin-top:16px;"><span class="highlight">Data sent to our AI processing backend (only during Coach requests):</span></p>
@@ -267,8 +266,9 @@
     <p style="margin-top:16px;"><span class="highlight">Apple HealthKit data (only if you grant permission):</span></p>
     <ul>
       <li>We write completed workouts (duration, calories) to Apple Health</li>
-      <li>We read heart rate and calorie data for workouts you complete inside the App</li>
-      <li>HealthKit data is never sent to our servers or any third party</li>
+      <li>We read heart rate, calorie, and workout data for sessions you complete or import</li>
+      <li>Heart-rate and calorie samples are used to show metrics in the app</li>
+      <li>Imported workouts saved as activities can be included in a coach request after you allow data sharing with Google and OpenAI</li>
     </ul>
   </section>
 
@@ -315,13 +315,14 @@
   <section>
     <h3>4. AI Coach &amp; Third-Party AI Providers</h3>
     <p>
-      The AI Coach feature sends your workout request and relevant fitness context to AI providers via our
-      Cloudflare Worker proxy server. Depending on your settings, the AI provider may be:
+      The first time you ask the coach, swap an exercise, or open a Coach Report, ActivAI asks permission before sending anything.
+      If you allow it, the request goes to Google Gemini through our Cloudflare Worker. If Gemini cannot answer, the same information is sent to OpenAI.
+      That path is available to every user, not only Pro subscribers. The proxy does not store the message or the reply.
     </p>
     <ul>
-      <li><span class="highlight">Google Gemini</span> — available on Free and Pro tiers. Governed by <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" style="color:var(--accent);">Google's Privacy Policy</a>.</li>
-      <li><span class="highlight">OpenAI (GPT)</span> — available on Pro tier. Governed by <a href="https://openai.com/policies/privacy-policy" target="_blank" rel="noopener noreferrer" style="color:var(--accent);">OpenAI's Privacy Policy</a>.</li>
-      <li><span class="highlight">Your own API key</span> — data is sent directly to the provider you chose.</li>
+      <li><span class="highlight">Google Gemini</span> — first cloud provider for every user. Governed by <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" style="color:var(--accent);">Google's Privacy Policy</a>.</li>
+      <li><span class="highlight">OpenAI</span> — used when Gemini cannot answer, and when you choose Cloud (OpenAI). Governed by <a href="https://openai.com/policies/privacy-policy" target="_blank" rel="noopener noreferrer" style="color:var(--accent);">OpenAI's Privacy Policy</a>.</li>
+      <li><span class="highlight">Your own API key</span> — stored on this device and sent only to the provider you chose.</li>
     </ul>
     <p>
       Our proxy server does not store or log the content of your messages or AI responses.
@@ -348,9 +349,11 @@
     <h3>6. Data Sharing</h3>
     <p>We do not sell, rent, or trade your personal information. We share data only as follows:</p>
     <ul>
-      <li><span class="highlight">AI providers</span> (Google, OpenAI) — only the fitness context described in Section 4, only when you use the AI Coach.</li>
+      <li><span class="highlight">AI providers</span> (Google Gemini and OpenAI) — the coaching context in Section 4, only after you allow it.</li>
       <li><span class="highlight">Apple</span> — subscription and purchase handling via StoreKit. Apple's privacy policy applies to those transactions.</li>
-      <li><span class="highlight">Cloudflare</span> — our infrastructure provider processes API requests through their network. No personal data is stored. Governed by <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener noreferrer" style="color:var(--accent);">Cloudflare's Privacy Policy</a>.</li>
+      <li><span class="highlight">RevenueCat</span> — subscription status. No payment card details.</li>
+      <li><span class="highlight">Sentry</span> — crash reports and anonymous product events on release builds. No advertising identifier.</li>
+      <li><span class="highlight">Cloudflare</span> — our infrastructure provider processes API requests through their network. Coaching content is not stored. Governed by <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener noreferrer" style="color:var(--accent);">Cloudflare's Privacy Policy</a>.</li>
       <li><span class="highlight">Legal requirements</span> — we may disclose data if required by law or to protect the rights and safety of our users.</li>
     </ul>
   </section>
@@ -359,7 +362,7 @@
   <section>
     <h3>7. Data Retention &amp; Deletion</h3>
     <p>
-      All app data (workouts, activities, profile, chat history) is stored on your device using iOS local storage (UserDefaults).
+      All app data (workouts, activities, profile, chat history) is stored on your device with SwiftData and UserDefaults.
       You can delete all data at any time via <span class="highlight">More → Clear All Data</span> inside the App.
     </p>
     <p>
@@ -382,9 +385,9 @@
       HealthKit data is:
     </p>
     <ul>
-      <li>Used only to display health metrics within the App (heart rate, calories)</li>
-      <li>Never transmitted to our servers or any third party</li>
-      <li>Never used for advertising or analytics purposes</li>
+      <li>Used to display health metrics in the app (heart rate, calories) and to import workouts you choose to bring in</li>
+      <li>Not used for advertising or analytics</li>
+      <li>Imported activities can leave the device only as part of a coach request you have allowed</li>
       <li>Subject to Apple's own HealthKit data protection policies</li>
     </ul>
   </section>
