@@ -268,7 +268,7 @@
       <li>We write completed workouts (duration, calories) to Apple Health</li>
       <li>We read heart rate, calorie, and workout data for sessions you complete or import</li>
       <li>Heart-rate and calorie samples are used to show metrics in the app</li>
-      <li>Imported workouts saved as activities can be included in a coach request after you allow data sharing with Google and OpenAI</li>
+      <li>Imported workouts saved as activities can be included in a coach request after you allow data sharing with the AI provider selected in Settings</li>
     </ul>
   </section>
 
@@ -316,12 +316,14 @@
     <h3>4. AI Coach &amp; Third-Party AI Providers</h3>
     <p>
       The first time you ask the coach, swap an exercise, or open a Coach Report, ActivAI asks permission before sending anything.
-      If you allow it, the request goes to Google Gemini through our Cloudflare Worker. If Gemini cannot answer, the same information is sent to OpenAI.
-      That path is available to every user, not only Pro subscribers. The proxy does not store the message or the reply.
+      If you allow it, ActivAI sends your coaching request and relevant training information to the AI provider selected in Settings.
+      In Auto mode and Cloud (Gemini), it tries Google Gemini first and may send the same information to OpenAI if Gemini cannot answer.
+      If you select Cloud OpenAI, it sends the request directly to OpenAI.
+      Those choices are available to every user, not only Pro subscribers. The proxy does not store the message or the reply.
     </p>
     <ul>
-      <li><span class="highlight">Google Gemini</span> — first cloud provider for every user. Governed by <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" style="color:var(--accent);">Google's Privacy Policy</a>.</li>
-      <li><span class="highlight">OpenAI</span> — used when Gemini cannot answer, and when you choose Cloud (OpenAI). Governed by <a href="https://openai.com/policies/privacy-policy" target="_blank" rel="noopener noreferrer" style="color:var(--accent);">OpenAI's Privacy Policy</a>.</li>
+      <li><span class="highlight">Google Gemini</span> — used first in Auto mode and Cloud (Gemini). Governed by <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" style="color:var(--accent);">Google's Privacy Policy</a>.</li>
+      <li><span class="highlight">OpenAI</span> — used when Gemini cannot answer in those modes, and used directly when you choose Cloud (OpenAI). Governed by <a href="https://openai.com/policies/privacy-policy" target="_blank" rel="noopener noreferrer" style="color:var(--accent);">OpenAI's Privacy Policy</a>.</li>
       <li><span class="highlight">Your own API key</span> — stored on this device and sent only to the provider you chose.</li>
     </ul>
     <p>
